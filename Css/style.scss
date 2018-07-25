@@ -1,0 +1,293 @@
+@import "juice";
+
+$image-width: 20px;
+$back-color: #41525e;
+$btn-color: #f37966;
+$normal-space: 20px;
+$text-color: #fff;
+
+@mixin border($width, $color, $radius){
+    border: $width solid $color;
+    border-radius: $radius;
+}
+
+@mixin block($width, $height){
+    width: $width;
+    height: $height;
+}
+
+@mixin grid($gtc, $nc, $gtr, $nr, $gg){
+    display: grid;
+    grid-template-columns: repeat($nc, $gtc);
+    grid-template-rows: repeat($nr, $gtr);
+    grid-gap: $gg;
+}
+
+@mixin container(){
+    width: 80%;
+    margin: 0 auto;
+}
+
+body{font-family: Open Sans, Arial, Helvetica, sans-serif;}
+
+img{@include size(20px)}
+
+h3{
+    font-size: 1.5em;
+    font-family: Crete Round, Arial, Helvetica, sans-serif;
+}
+
+nav.navbar-default{
+    background-color: $back-color;
+    padding-bottom: $normal-space;
+    margin-bottom: 0;
+    @include border(0, #000, 0);
+    .navbar-brand{
+        color: $text-color;
+        img{
+            display: inline-block;
+            @include size($image-width + 30px, auto);
+        }
+        :hover{color: $text-color}
+    }
+    .navbar-nav{
+        li{
+            margin-top: $normal-space - 5px;
+            margin-left: $normal-space - 15px;
+            a{
+                line-height: 3em;
+                font-weight: 400;
+                color: #f0f0f0;  
+                padding: 0 $normal-space - 10px;
+                font-family: Crete Round, Arial, Helvetica, sans-serif;
+            }
+            :hover{background-color: #DDD;}
+        }
+        .active a{
+            color: $text-color;
+            background-color: #384550;
+            font-family: Open Sans, Arial, Helvetica, sans-serif;
+        }
+        .buttons{
+            @include border(0, #000, 10px);
+            box-shadow: 0.5px 0.5px 1px inset #ddd;
+            :hover{@include border(0, #000, 10px)}
+        }
+        .register{background-color: $btn-color}
+    }
+    img{width: $normal-space}
+}
+
+header{
+    background-image: linear-gradient(rgba(100, 100, 100, 0.8),
+                                    rgba(150, 150, 150, 0.8)),
+                                url(../Images/blurbackground.jpg);
+    height: 100vh;
+    @include bp(max, 992px){height: 100%};
+
+    .header_container{
+        @include container();
+        display: flex;
+        flex-direction: row-reverse;
+        @include bp(max, 992px){flex-direction: column;}
+
+        img.img-responsive{
+            @include size(auto, 400px);
+            margin-top: $normal-space * 5;
+            @include rotate(-10deg);
+        }
+    
+        .heading{
+            color: $text-color;
+            margin-top: $normal-space * 10;
+
+            h2{
+                font-weight: 700;
+                font-family: Crete Round, Arial, Helvetica, sans-serif;
+            }
+
+            p{ 
+                line-height: 2em;
+                font-size: 1.2em;
+            }
+
+            a{
+                display: block;
+                background-color: $btn-color;
+                @include border(0, #000, 5px);
+                color: $text-color;
+                font-size: 1.2em;
+                width: $normal-space * 7;
+                margin-bottom: $normal-space;
+
+                img{@include size(40px, auto)}
+            }
+        }
+    }
+}
+
+main{
+    @include container();
+
+    #About{
+        @include grid(1fr, 3, 0, 0, $normal-space);
+        @include bp(max, 992px){
+            @include grid(1fr, 1, 1fr, 3, $normal-space);
+        }
+
+        span{
+            background-color: $btn-color;
+            display: inline-block;
+            @include border(0, #000, 50%);
+            @include size(40px);
+
+            img{
+                margin-left: $normal-space / 2;
+                margin-top: $normal-space / 2;
+            }
+        }
+    }
+
+    #Courses{
+        .grid{
+            @include grid(1fr, 4, 0, 0, $normal-space);
+            @include bp(max, 1300px){
+                @include grid(1fr, 2, 1fr, 2, $normal-space);
+            }
+            @include bp(max, 768px){
+                @include grid(1fr, 1, 1fr, 4, $normal-space);
+            }
+
+            .border-box{
+                @include border(1px, #ddd, 0);
+                box-shadow: -2px -2px 2px rgba(200, 200, 200, 0.8);
+                position: relative;
+
+                .big-image{@include size(250px)}
+
+                .big-image, h3, p{margin: $normal-space / 2;}
+
+                h3{font-size: 1.3em;}
+
+                .footer{
+                    background-color: #eee;
+                    height: $normal-space + 10px;
+                    line-height: 2em;
+                    display: grid;
+                    grid-template-columns: auto 1fr 1fr;
+                    padding-bottom: $normal-space + 10px;
+
+                    img{margin-top: $normal-space / 4;}
+
+                    span{
+                        font-size: 1.2em;
+                        line-height: 2em;
+                    }
+
+                    .rated img{margin-top: $normal-space / -4;}
+                }
+
+                .access{
+                    position: absolute;
+                    top: 10px;
+                    left: -12px;
+                    background-color: #61a6d7;
+                    color: $text-color;
+                    font-size: 1.2em;
+                    padding: $normal-space / 4 $normal-space / 2;
+                }
+
+                .free{background-color: $btn-color}
+            }            
+        }
+    }
+
+    #Members{
+        @include grid(1fr, 2, 0, 0, 0);
+        @include bp(max, 768px){
+            @include grid(1fr, 1, auto, 3, $normal-space);
+        }
+
+        .member{
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-gap: $normal-space;
+            margin-top: $normal-space;
+
+            .member-img{
+                background-color: #fff;
+
+                    img{
+                        @include size(100px);
+                        @include border(3px, #fff, 0);
+                        box-shadow: -2px -2px 2px rgba(200, 200, 200, 0.8),
+                                    2px 2px 2px rgba(200, 200, 200, 0.8);
+                    }
+
+                    a{
+                        display: block;
+                        background-color: #EEE;
+                        @include size(25px);
+                        margin-left: 45%;
+                    }
+                    
+                    i{
+                        color: #000;
+                        margin-top: $normal-space / 2;
+                        display: block;
+                        padding-left: $normal-space / 2;
+                        padding-top: $normal-space / 4;
+                    }
+            }
+        }
+
+        .testimonial{
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-gap: $normal-space;
+            margin-top: $normal-space;
+
+            .testimonial-img{
+                @include border(0, #fff, 50%);
+
+                img{
+                    @include size(70px);
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
+
+footer{
+    background-color: $back-color;
+    margin-top: $normal-space;
+
+    .container{
+        line-height: 4em;
+
+        p{
+            color: $text-color;
+            display: inline-block;
+        }
+
+        nav{
+            display: inline-block;
+            float: right;
+        }
+
+        ul{
+            list-style: none;
+
+            li{
+                display: inline;
+                margin-left: $normal-space;
+
+                a{color: $text-color}
+
+                a:hover{text-decoration: none}
+            }
+        }
+    }
+    
+}
